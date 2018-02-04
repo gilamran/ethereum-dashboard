@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { IUserDTO } from '../../shared/IUserDTO';
+import { ITransactionsDTO } from '../../shared/ITransactionsDTO';
 
-export function loadUsersAPI() {
-  return axios.get(`/api/users`).then(res => res.data as IUserDTO[]);
+export function loadTransactions() {
+  return axios.get(`/api/transations`).then(res => res.data as ITransactionsDTO[]);
 }

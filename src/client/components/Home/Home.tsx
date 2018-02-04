@@ -1,13 +1,22 @@
 import * as React from 'react';
 import { Jumbotron } from 'react-bootstrap';
+import { loadTransactions } from '../../utils/api-facade';
 
 const css = require('./Home.css');
-const logoImg = require('../../../../assets/images/logo.png');
 
-export const Home = () => (
-  <Jumbotron>
-    <img src={logoImg} className={css.logo}/>
-    <h1>FullStack React with TypeScript</h1>
-    <p>This is a starter kit to get you up and running with React with TypeScript.</p>
-  </Jumbotron>
-);
+export class Home extends React.Component {
+  constructor() {
+    super();
+    loadTransactions().then(data => {
+      console.log(data);
+    });
+  }
+  public render() {
+    return (
+      <Jumbotron>
+        <h1>Ethereum Dashboard</h1>
+        <p>#1 Ethereume dashboard.</p>
+      </Jumbotron>
+    );
+  }
+}
