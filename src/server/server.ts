@@ -3,7 +3,7 @@ import { apiRouter } from './routes/api-router';
 import { staticsRouter } from './routes/statics-router';
 import { staticsDevRouter } from './routes/statics-dev-router';
 import * as config from './config';
-import { initSocketIO, log } from './ws/ws';
+import { initSocketIO, broadcastTransactionsInfo } from './ws/ws';
 import { setInterval } from 'timers';
 
 const app = express();
@@ -17,5 +17,7 @@ const server = app.listen(config.SERVER_PORT, () => {
 
 initSocketIO(server);
 setInterval(() => {
-  log(Math.random());
+  broadcastTransactionsInfo({
+    count: Math.random()
+  });
 }, 1000);

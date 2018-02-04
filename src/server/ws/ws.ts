@@ -1,9 +1,10 @@
+import { ITransactionsInfoDTO } from './../../shared/ITransactionsInfoDTO.d';
 import * as socketIO from 'socket.io';
 
 const sockets = {};
 
-export function log(msg) {
-  Object.keys(sockets).map(id => sockets[id]).forEach(s => s.emit('log', { msg }));
+export function broadcastTransactionsInfo(transactionsInfoDTO: ITransactionsInfoDTO) {
+  Object.keys(sockets).map(id => sockets[id]).forEach(s => s.emit('transactions-info', transactionsInfoDTO));
 }
 
 export function initSocketIO(server) {
