@@ -3,7 +3,8 @@ import { apiRouter } from './routes/api-router';
 import { staticsRouter } from './routes/statics-router';
 import { staticsDevRouter } from './routes/statics-dev-router';
 import * as config from './config';
-import { GethAdapter } from './geth-adapter/GethAdapter';
+import { NetworkState } from './ethereum-network/NetworkState';
+import { GethAdapter } from './ethereum-network/GethAdapter';
 import { initSocketIO, broadcastTransactionsInfo, broadcastBlocksInfo } from './ws/ws';
 import { setInterval } from 'timers';
 
@@ -19,26 +20,23 @@ function startServer() {
   return server;
 }
 
-function fireDummyData(gethAdapter: GethAdapter) {
-  setInterval(() => {
-    broadcastTransactionsInfo({
-      count: Math.random()
-    });
-  }, 1000);
-}
-
 async function main() {
   const server = startServer();
   initSocketIO(server);
+
+  // geth adapter
   const gethAdapter = new GethAdapter();
   await gethAdapter.init();
+  console.log(`geth adapter connected to geth`);
   gethAdapter.subscribeToOnBlockAdded(block => {
     broadcastBlocksInfo({
       count: gethAdapter.getBlockNumber()
     });
   });
-  console.log(`geth adapter connected to geth`);
-  fireDummyData(gethAdapter);
+
+  // network state
+  const networkState: NetworkState = new NetworkState(gethAdapter);
+  await networkState.syncWithNetwork();
 }
 
 main();

@@ -16,3 +16,10 @@ The server communicates with a [geth](https://github.com/ethereum/go-ethereum/wi
 
 ### Client
 React with redux, with web-sockets for the real-time data.
+
+## How to run
+ * Install packages using `npm install`
+ * Build using `npm run build`
+ * Start `geth`, make that it's synced and json-rpc is active at `http://localhost:8545` (Default).
+ * Start the server using `npm start`
+ * Navigate to [http://localhost:8080](http://localhost:8080)

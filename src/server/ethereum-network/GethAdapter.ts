@@ -1,3 +1,4 @@
+import { IBlock } from './IBlock';
 const rpc = require('ethrpc');
 const connectionConfiguration = {
     httpAddresses: ['http://localhost:8545'],
@@ -31,5 +32,25 @@ export class GethAdapter {
 
   public getBlockNumber(): number {
     return parseInt(rpc.eth.blockNumber(), 16);
+  }
+
+  public getBlockAt(idx: number): Promise<IBlock> {
+    return new Promise((resolve, reject) => {
+      rpc.eth.getBlockByNumber([idx, false], block => {
+        const parsedBlock: IBlock = {
+          difficulty: parseInt(block.difficulty, 16),
+          gasLimit: parseInt(block.gasLimit, 16),
+          gasUsed: parseInt(block.gasUsed, 16),
+          hash: block.hash,
+          number: parseInt(block.number, 16),
+          parentHash: block.parentHash,
+          size: parseInt(block.size, 16),
+          transactions: block.transactions,
+          transactionsRoot: block.transactionsRoot,
+          uncles: block.uncles
+        };
+        resolve(parsedBlock);
+      });
+    });
   }
 }
