@@ -1,10 +1,15 @@
-import { ITransactionsInfoDTO } from './../../shared/ITransactionsInfoDTO.d';
+import { ITransactionsInfoDTO } from './../../shared/ITransactionsInfoDTO';
+import { IBlocksInfoDTO } from './../../shared/IBlocksInfoDTO';
 import * as socketIO from 'socket.io';
 
 const sockets = {};
 
 export function broadcastTransactionsInfo(transactionsInfoDTO: ITransactionsInfoDTO) {
   Object.keys(sockets).map(id => sockets[id]).forEach(s => s.emit('transactions-info', transactionsInfoDTO));
+}
+
+export function broadcastBlocksInfo(blocksInfoDTO: IBlocksInfoDTO) {
+  Object.keys(sockets).map(id => sockets[id]).forEach(s => s.emit('blocks-info', blocksInfoDTO));
 }
 
 export function initSocketIO(server) {

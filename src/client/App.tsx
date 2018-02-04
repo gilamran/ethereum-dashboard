@@ -4,9 +4,11 @@ import { Provider } from 'react-redux';
 import { configureStore } from './store/store';
 import { Home } from './components/Home/Home';
 import { listenToTransactionsInfoAction } from './actions/transactionsInfoActions';
+import { listenToBlocksInfoAction } from './actions/blocksInfoActions';
 
 const store = configureStore();
 store.dispatch(listenToTransactionsInfoAction());
+store.dispatch(listenToBlocksInfoAction());
 
 export const App = () => (
   <Provider store={store}>

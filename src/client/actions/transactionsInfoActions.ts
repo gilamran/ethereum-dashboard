@@ -1,7 +1,7 @@
 import * as io from 'socket.io-client';
 import { transactionsInfo, ITransactionsInfo } from '../reducers/transactionsInfoReducer';
 
-export const simulationOutputActionsNames = {
+export const transactionsInfoActionsNames = {
   SET_TRANSACTIONS_COUNT: 'SET_TRANSACTIONS_COUNT'
 };
 
@@ -17,7 +17,7 @@ export function listenToTransactionsInfoAction() {
 
 export function setTransactionsCountAction(count: number) {
   return {
-    type: simulationOutputActionsNames.SET_TRANSACTIONS_COUNT,
+    type: transactionsInfoActionsNames.SET_TRANSACTIONS_COUNT,
     count
   };
 }
