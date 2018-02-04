@@ -68,6 +68,7 @@
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
     "concurrently": "^3.4.0",
+    "ethrpc": "^4.5.7",
     "express": "^4.15.2",
     "file-loader": "^0.11.1",
     "http-proxy-middleware": "^0.17.4",
