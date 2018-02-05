@@ -36,7 +36,7 @@ async function main() {
 
   // network state
   const networkState: NetworkState = new NetworkState(gethAdapter);
-  await networkState.syncWithNetwork();
+  await networkState.init();
 }
 
 main();

@@ -22,8 +22,8 @@ export class GethAdapter {
     });
   }
 
-  public subscribeToOnBlockAdded(onBlock): number {
-    return this.blockStream.subscribeToOnBlockAdded(onBlock);
+  public subscribeToOnBlockAdded(onBlock: (block: IBlock) => void): number {
+    return this.blockStream.subscribeToOnBlockAdded(block => onBlock(this.convertBlock(block)));
   }
 
   public unsubscribeToOnBlockAdded(subscriptionToken): void {
@@ -37,20 +37,24 @@ export class GethAdapter {
   public getBlockAt(idx: number): Promise<IBlock> {
     return new Promise((resolve, reject) => {
       rpc.eth.getBlockByNumber([idx, false], block => {
-        const parsedBlock: IBlock = {
-          difficulty: parseInt(block.difficulty, 16),
-          gasLimit: parseInt(block.gasLimit, 16),
-          gasUsed: parseInt(block.gasUsed, 16),
-          hash: block.hash,
-          number: parseInt(block.number, 16),
-          parentHash: block.parentHash,
-          size: parseInt(block.size, 16),
-          transactions: block.transactions,
-          transactionsRoot: block.transactionsRoot,
-          uncles: block.uncles
-        };
-        resolve(parsedBlock);
+        const convertedBlock: IBlock = this.convertBlock(block);
+        resolve(convertedBlock);
       });
     });
+  }
+
+  private convertBlock(block): IBlock {
+    return {
+      difficulty: parseInt(block.difficulty, 16),
+      gasLimit: parseInt(block.gasLimit, 16),
+      gasUsed: parseInt(block.gasUsed, 16),
+      hash: block.hash,
+      number: parseInt(block.number, 16),
+      parentHash: block.parentHash,
+      size: parseInt(block.size, 16),
+      transactions: block.transactions,
+      transactionsRoot: block.transactionsRoot,
+      uncles: block.uncles
+    };
   }
 }
