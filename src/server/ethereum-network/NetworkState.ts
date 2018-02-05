@@ -1,17 +1,19 @@
 import { GethAdapter } from './GethAdapter';
 import { IBlock } from './IBlock';
 import { loadJsonFile, saveJsonFile } from '../utils/file-utils';
+import { EventEmitter } from 'events';
 
-export class NetworkState {
+export class NetworkState extends EventEmitter {
+  public numberOfTransactions: number;
+  public numberOfUnkles: number;
+  public topBlockNumber: number;
+
   private stateFileName;
-
-  private numberOfTransactions: number;
-  private numberOfUnkles: number;
-  private topBlockNumber: number;
   private toBlockIdx: number;
   private isProcessing: boolean = false;
 
   constructor(private gethAdapter: GethAdapter) {
+    super();
   }
 
   public async init() {
@@ -39,18 +41,20 @@ export class NetworkState {
       await this.processBlock(this.topBlockNumber);
       this.topBlockNumber++;
     }
+    this.topBlockNumber = this.toBlockIdx;
     await this.saveState();
     this.isProcessing = false;
+    this.emit('state-changed');
   }
 
   private async processBlock(blockNumber: number) {
     const block: IBlock = await this.gethAdapter.getBlockAt(blockNumber);
     this.numberOfTransactions += block.transactions.length;
     this.numberOfUnkles += block.uncles.length;
-    console.log(`Block #${block.number} => Tx: ${block.transactions.length} [${this.numberOfTransactions}], Unkles ${block.uncles.length} [${this.numberOfUnkles}]`);
     if (this.numberOfUnkles > 0) {
       console.log(this.numberOfUnkles);
     }
+    console.log(`Block #${block.number} => Tx: ${block.transactions.length} [${this.numberOfTransactions}], Unkles ${block.uncles.length} [${this.numberOfUnkles}]`);
   }
 
   private async saveState(): Promise<void> {
@@ -67,13 +71,13 @@ export class NetworkState {
     return {
       numberOfTransactions: this.numberOfTransactions,
       numberOfUnkles: this.numberOfUnkles,
-      processedBlocks: this.topBlockNumber
+      topBlockNumber: this.topBlockNumber
     };
   }
 
   private deserialize(data) {
     this.numberOfTransactions = data.numberOfTransactions || 0;
     this.numberOfUnkles = data.numberOfUnkles || 0;
-    this.topBlockNumber = data.processedBlocks || 0;
+    this.topBlockNumber = data.topBlockNumber || 0;
   }
 }

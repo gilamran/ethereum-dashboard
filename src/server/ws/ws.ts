@@ -1,26 +1,28 @@
 import { ITransactionsInfoDTO } from './../../shared/ITransactionsInfoDTO';
 import { IBlocksInfoDTO } from './../../shared/IBlocksInfoDTO';
 import * as socketIO from 'socket.io';
+import { Server } from 'http';
 
-const sockets = {};
+export class WS {
+  private sockets = {};
 
-export function broadcastTransactionsInfo(transactionsInfoDTO: ITransactionsInfoDTO) {
-  Object.keys(sockets).map(id => sockets[id]).forEach(s => s.emit('transactions-info', transactionsInfoDTO));
-}
+  constructor(private server: Server) {
+  }
 
-export function broadcastBlocksInfo(blocksInfoDTO: IBlocksInfoDTO) {
-  Object.keys(sockets).map(id => sockets[id]).forEach(s => s.emit('blocks-info', blocksInfoDTO));
-}
+  public init() {
+    const io = socketIO(this.server);
 
-export function initSocketIO(server) {
-  const io = socketIO(server);
-
-  io.on('connection', socket => {
-    sockets[socket.id] = socket;
-    console.log(`Client connected, ${Object.keys(sockets).length} connections`);
-    socket.on('disconnect', () => {
-      delete sockets[socket.id];
-      console.log(`Client disconnected, ${Object.keys(sockets).length} connections.`);
+    io.on('connection', socket => {
+      this.sockets[socket.id] = socket;
+      console.log(`Client connected, ${Object.keys(this.sockets).length} connections`);
+      socket.on('disconnect', () => {
+        delete this.sockets[socket.id];
+        console.log(`Client disconnected, ${Object.keys(this.sockets).length} connections.`);
+      });
     });
-  });
+  }
+
+  public emit(name: string, data: any) {
+    Object.keys(this.sockets).map(id => this.sockets[id]).forEach(s => s.emit(name, data));
+  }
 }
