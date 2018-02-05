@@ -3,6 +3,7 @@ import { IBlocksSummary } from './../../shared/IBlocksSummary';
 
 const initialState: IBlocksSummary = {
   count: 0,
+  numberOfUnkles: 0,
   latestBlocksSummary: [
     { confirmationTime: 15, timestamp: 0, gasUsed: 100, hash: '0x7862145', number: 171009 },
     { confirmationTime: 11, timestamp: 0, gasUsed: 200, hash: '0x7862145', number: 171008 },
@@ -19,7 +20,7 @@ const initialState: IBlocksSummary = {
 export function blocksSummary(state: IBlocksSummary = initialState, action) {
   switch (action.type) {
     case blocksSummaryActionsNames.SET_BLOCKS_COUNT:
-      return { ...state, count: action.count };
+      return { ...state, count: action.count, numberOfUnkles: action.numberOfUnkles };
 
     case blocksSummaryActionsNames.SET_LATEST_BLOCKS:
       return { ...state, latestBlocksSummary: action.latestBlocksSummary };

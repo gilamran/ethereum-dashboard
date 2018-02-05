@@ -12,20 +12,21 @@ const socket = io();
 export function listenToBlocksSummaryAction() {
   return dispatch => {
     socket.on('blocks-summary', (blocksSummary: IBlocksSummary) => {
-      dispatch(seBlocksCountAction(blocksSummary.count));
-      dispatch(seLatestBlocksSummaryAction(blocksSummary.latestBlocksSummary));
+      dispatch(sesBlocksCountAction(blocksSummary.count, blocksSummary.numberOfUnkles));
+      dispatch(sesLatestBlocksSummaryAction(blocksSummary.latestBlocksSummary));
     });
   };
 }
 
-export function seBlocksCountAction(count: number) {
+export function sesBlocksCountAction(count: number, numberOfUnkles: number) {
   return {
     type: blocksSummaryActionsNames.SET_BLOCKS_COUNT,
-    count
+    count,
+    numberOfUnkles
   };
 }
 
-export function seLatestBlocksSummaryAction(latestBlocksSummary: IBlockSummary[]) {
+export function sesLatestBlocksSummaryAction(latestBlocksSummary: IBlockSummary[]) {
   return {
     type: blocksSummaryActionsNames.SET_LATEST_BLOCKS,
     latestBlocksSummary

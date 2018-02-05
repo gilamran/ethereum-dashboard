@@ -6,18 +6,18 @@ import { IStore } from '../../store/IStore';
 import { BaseBox } from '../BaseBox/BaseBox';
 import { IBlocksSummary } from './../../../shared/IBlocksSummary';
 
-const css = require('./BlocksBox.css');
+const css = require('./BlocksUnclesBox.css');
 
 interface IProps {
   blocksSummary: IBlocksSummary;
 }
 
-class BlocksBoxImpl extends React.Component<IProps> {
+class BlocksUnclesBoxImpl extends React.Component<IProps> {
   public render() {
     return (
-      <BaseBox title='Last Block Number'>
+      <BaseBox title='Total blocks'>
         <Typography variant='headline' gutterBottom>
-          {this.props.blocksSummary.count}
+          {this.props.blocksSummary.count + this.props.blocksSummary.numberOfUnkles}
         </Typography>
       </BaseBox>
     );
@@ -30,4 +30,4 @@ function mapStateToProps(store: IStore) {
   };
 }
 
-export const BlocksBox: any = connect(mapStateToProps, null)(BlocksBoxImpl);
+export const BlocksUnclesBox: any = connect(mapStateToProps, null)(BlocksUnclesBoxImpl);

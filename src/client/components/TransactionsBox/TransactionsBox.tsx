@@ -23,7 +23,7 @@ interface IProps {
 class TransactionsBoxImpl extends React.Component<IProps> {
   public render() {
     return (
-      <BaseBox title='Transactions'>
+      <BaseBox title='Total Transactions'>
         <Typography variant='headline' gutterBottom>{this.props.transactionsSummary.count}</Typography>
       </BaseBox>
     );

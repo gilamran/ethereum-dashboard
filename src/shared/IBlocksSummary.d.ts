@@ -8,5 +8,6 @@ export interface IBlockSummary {
 
 export interface IBlocksSummary {
     count: number;
+    numberOfUnkles: number;
     latestBlocksSummary: IBlockSummary[];
 }

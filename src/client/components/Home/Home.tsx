@@ -5,6 +5,7 @@ import Typography from 'material-ui/Typography';
 import * as React from 'react';
 
 import { BlocksBox } from '../BlocksBox/BlocksBox';
+import { BlocksUnclesBox } from '../BlocksUnclesBox/BlocksUnclesBox';
 import { ConfirmationTimesBox } from '../ConfirmationTimesBox/ConfirmationTimesBox';
 import { TransactionsBox } from '../TransactionsBox/TransactionsBox';
 
@@ -38,14 +39,14 @@ function HomeImpl(props) {
               <Typography variant='headline' gutterBottom className={classes.header}>Ethereum Dashboard</Typography>
           </Paper>
         </Grid>
-        {/* <Grid item xs={12}>
-          <Typography variant='subheading' gutterBottom>The #1 Ethereum dashboard.</Typography>
-        </Grid> */}
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <TransactionsBox />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <BlocksBox />
+        </Grid>
+        <Grid item xs={4}>
+          <BlocksUnclesBox />
         </Grid>
         <Grid item xs={12}>
           <ConfirmationTimesBox />

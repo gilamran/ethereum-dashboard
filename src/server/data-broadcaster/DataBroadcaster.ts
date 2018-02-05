@@ -16,12 +16,16 @@ export class DataBroadcaster {
   private listenToNetworkEvents() {
     this.networkState.addListener('state-changed', () => {
       this.broadcastTransactionsSummary({ count: this.networkState.numberOfTransactions });
-      this.broadcastBlocksSummary({ count: this.networkState.topBlockNumber, latestBlocksSummary: this.networkState.latestBlocksSummary });
+      this.broadcastBlocksSummary({
+        count: this.networkState.topBlockNumber,
+        numberOfUnkles: this.networkState.numberOfUnkles,
+        latestBlocksSummary: this.networkState.latestBlocksSummary
+      });
     });
   }
 
   private broadcastTransactionsSummary(transactionsSummary: ITransactionsSummary) {
-  this.ws.emit('transactions-summary', transactionsSummary);
+    this.ws.emit('transactions-summary', transactionsSummary);
   }
 
   private broadcastBlocksSummary(blocksSummary: IBlocksSummary) {
