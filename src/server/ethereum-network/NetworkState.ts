@@ -1,6 +1,6 @@
 import { GethAdapter } from './GethAdapter';
 import { IBlock } from './IBlock';
-import { loadJsonFile, saveJsonFile } from '../utils/fileUtils';
+import { loadJsonFile, saveJsonFile } from '../utils/file-utils';
 
 export class NetworkState {
   private readonly NETWORK_NAME = 'rinkeby';
