@@ -2,10 +2,12 @@ import { blocksInfoActionsNames } from './../actions/blocksInfoActions';
 
 export interface IBlocksInfo {
   count: number;
+  confirmationTimes: number[];
 }
 
 const initialState: IBlocksInfo = {
-  count: 0
+  count: 0,
+  confirmationTimes: [15, 11, 8, 15, 19, 21, 15, 9, 11, 12]
 };
 
 export function blocksInfo(state: IBlocksInfo = initialState, action) {

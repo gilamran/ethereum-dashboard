@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 
 import { TransactionsBox } from '../TransactionsBox/TransactionsBox';
 import { BlocksBox } from '../BlocksBox/BlocksBox';
+import { ConfirmationTimesBox } from '../ConfirmationTimesBox/ConfirmationTimesBox';
 import AppBar from 'material-ui/AppBar';
 import Typography from 'material-ui/Typography';
 
@@ -35,6 +36,9 @@ function HomeImpl(props) {
         </Grid>
         <Grid item xs={6}>
           <BlocksBox />
+        </Grid>
+        <Grid item xs={12}>
+          <ConfirmationTimesBox />
         </Grid>
       </Grid>
     </div>
