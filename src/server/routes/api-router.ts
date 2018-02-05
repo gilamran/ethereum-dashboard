@@ -1,4 +1,4 @@
-import { ITransactionsInfoDTO } from './../../shared/ITransactionsInfoDTO.d';
+import { ITransactionsSummary } from './../../shared/ITransactionsSummary';
 import * as bodyParser from 'body-parser';
 import { Router } from 'express';
 
@@ -7,8 +7,8 @@ export function apiRouter() {
   router.use(bodyParser.json());
 
   router.get('/api/transations', (req, res) => {
-    const transactionsInfoDTO: ITransactionsInfoDTO = { count: 5 };
-    res.json(transactionsInfoDTO);
+    const transactionsSummary: ITransactionsSummary = { count: 5 };
+    res.json(transactionsSummary);
   });
 
   return router;

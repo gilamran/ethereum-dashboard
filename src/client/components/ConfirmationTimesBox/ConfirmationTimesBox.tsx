@@ -2,13 +2,13 @@ import * as React from 'react';
 import { LineChart, Line, AreaChart, XAxis, YAxis, Area, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { connect } from 'react-redux';
 import { IStore } from '../../store/IStore';
-import { IBlocksInfo } from './../../../shared/IBlocksInfo';
+import { IBlocksSummary } from './../../../shared/IBlocksSummary';
 import { BaseBox } from '../BaseBox/BaseBox';
 
 const css = require('./ConfirmationTimesBox.css');
 
 interface IProps {
-  blocksInfo: IBlocksInfo;
+  blocksSummary: IBlocksSummary;
 }
 
 class ConfirmationTimesBoxImpl extends React.Component<IProps> {
@@ -16,7 +16,7 @@ class ConfirmationTimesBoxImpl extends React.Component<IProps> {
     return (
       <BaseBox title='Block Confirmation Times'>
         <ResponsiveContainer width='100%' height={250}>
-          <AreaChart data={this.props.blocksInfo.latestBlocks}>
+          <AreaChart data={this.props.blocksSummary.latestBlocksSummary}>
             <defs>
               <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
                 <stop offset='5%' stopColor='#8884d8' stopOpacity={0.8} />
@@ -36,7 +36,7 @@ class ConfirmationTimesBoxImpl extends React.Component<IProps> {
 
 function mapStateToProps(store: IStore) {
   return {
-    blocksInfo: store.blocksInfo
+    blocksSummary: store.blocksSummary
   };
 }
 

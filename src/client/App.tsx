@@ -4,12 +4,12 @@ import Reboot from 'material-ui/Reboot';
 
 import { configureStore } from './store/store';
 import { Home } from './components/Home/Home';
-import { listenToTransactionsInfoAction } from './actions/transactionsInfoActions';
-import { listenToBlocksInfoAction } from './actions/blocksInfoActions';
+import { listenToTransactionsSummaryAction } from './actions/transactionsSummaryActions';
+import { listenToBlocksSummaryAction } from './actions/blocksSummaryActions';
 
 const store = configureStore();
-store.dispatch(listenToTransactionsInfoAction());
-store.dispatch(listenToBlocksInfoAction());
+store.dispatch(listenToTransactionsSummaryAction());
+store.dispatch(listenToBlocksSummaryAction());
 
 export const App = () => (
   <Provider store={store}>

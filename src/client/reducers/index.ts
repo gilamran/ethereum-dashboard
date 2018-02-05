@@ -1,9 +1,9 @@
 import { combineReducers, Reducer } from 'redux';
 import { IStore } from './../store/IStore';
-import { transactionsInfo } from './transactionsInfoReducer';
-import { blocksInfo } from './blocksInfoReducer';
+import { transactionsSummary } from './transactionsSummaryReducer';
+import { blocksSummary } from './blocksSummaryReducer';
 
 export const rootReducer: Reducer<IStore> = combineReducers<IStore>({
-  transactionsInfo,
-  blocksInfo
+  transactionsSummary,
+  blocksSummary
 });

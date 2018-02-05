@@ -1,7 +1,7 @@
-import { ITransactionsInfo } from './../reducers/transactionsInfoReducer';
-import { IBlocksInfo } from './../../shared/IBlocksInfo';
+import { ITransactionsSummary } from '../../shared/ITransactionsSummary';
+import { IBlocksSummary } from '../../shared/IBlocksSummary';
 
 export interface IStore {
-  transactionsInfo: ITransactionsInfo;
-  blocksInfo: IBlocksInfo;
+  transactionsSummary: ITransactionsSummary;
+  blocksSummary: IBlocksSummary;
 }

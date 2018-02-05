@@ -1,7 +1,8 @@
 import { NetworkState } from '../ethereum-network/NetworkState';
 import { WS } from '../ws/ws';
-import { ITransactionsInfo } from '../../shared/ITransactionsInfo';
-import { IBlocksInfo } from '../../shared/IBlocksInfo';
+import { ITransactionsSummary } from '../../shared/ITransactionsSummary';
+import { IBlocksSummary, IBlockSummary } from '../../shared/IBlocksSummary';
+import { IBlock } from '../ethereum-network/IBlock';
 
 export class DataBroadcaster {
   constructor(private networkState: NetworkState, private ws: WS) {
@@ -14,17 +15,16 @@ export class DataBroadcaster {
 
   private listenToNetworkEvents() {
     this.networkState.addListener('state-changed', () => {
-      this.broadcastTransactionsInfo({ count: this.networkState.numberOfTransactions });
-      this.broadcastBlocksInfo({ count: this.networkState.topBlockNumber });
+      this.broadcastTransactionsSummary({ count: this.networkState.numberOfTransactions });
+      this.broadcastBlocksSummary({ count: this.networkState.topBlockNumber, latestBlocksSummary: this.networkState.latestBlocksSummary });
     });
   }
 
-  private broadcastTransactionsInfo(transactionsInfoDTO: ITransactionsInfo) {
-    this.ws.emit('transactions-info', transactionsInfoDTO);
+  private broadcastTransactionsSummary(transactionsSummary: ITransactionsSummary) {
+    this.ws.emit('transactions-summary', transactionsSummary);
   }
 
-  private broadcastBlocksInfo(blocksInfoDTO: IBlocksInfoDTO) {
-    this.ws.emit('blocks-info', blocksInfoDTO);
+  private broadcastBlocksSummary(blocksSummary: IBlocksSummary) {
+    this.ws.emit('blocks-summary', blocksSummary);
   }
-
 }

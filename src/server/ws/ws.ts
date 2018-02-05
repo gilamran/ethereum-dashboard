@@ -1,5 +1,5 @@
-import { ITransactionsInfo } from '../../shared/ITransactionsInfo';
-import { IBlocksInfo } from '../../shared/IBlocksInfo';
+import { ITransactionsSummary } from '../../shared/ITransactionsSummary';
+import { IBlocksSummary } from '../../shared/IBlocksSummary';
 import * as socketIO from 'socket.io';
 import { Server } from 'http';
 

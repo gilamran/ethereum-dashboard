@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../store/IStore';
-import { IBlocksInfo } from './../../../shared/IBlocksInfo';
+import { IBlocksSummary } from './../../../shared/IBlocksSummary';
 import { BaseBox } from '../BaseBox/BaseBox';
 
 const css = require('./BlocksBox.css');
 
 interface IProps {
-  blocksInfo: IBlocksInfo;
+  blocksSummary: IBlocksSummary;
 }
 
 class BlocksBoxImpl extends React.Component<IProps> {
   public render() {
     return (
       <BaseBox title='Blocks'>
-        <div>{this.props.blocksInfo.count}</div>
+        <div>{this.props.blocksSummary.count}</div>
       </BaseBox>
     );
   }
@@ -22,7 +22,7 @@ class BlocksBoxImpl extends React.Component<IProps> {
 
 function mapStateToProps(store: IStore) {
   return {
-    blocksInfo: store.blocksInfo
+    blocksSummary: store.blocksSummary
   };
 }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../store/IStore';
-import { ITransactionsInfo } from '../../reducers/transactionsInfoReducer';
+import { ITransactionsSummary } from '../../../shared/ITransactionsSummary';
 import { BaseBox } from '../BaseBox/BaseBox';
 
 const css = require('./TransactionsBox.css');
@@ -15,14 +15,14 @@ const styles = theme => ({
 });
 
 interface IProps {
-  transactionsInfo: ITransactionsInfo;
+  transactionsSummary: ITransactionsSummary;
 }
 
 class TransactionsBoxImpl extends React.Component<IProps> {
   public render() {
     return (
       <BaseBox title='Transactions'>
-        <div>{this.props.transactionsInfo.count}</div>
+        <div>{this.props.transactionsSummary.count}</div>
       </BaseBox>
     );
   }
@@ -30,7 +30,7 @@ class TransactionsBoxImpl extends React.Component<IProps> {
 
 function mapStateToProps(store: IStore) {
   return {
-    transactionsInfo: store.transactionsInfo
+    transactionsSummary: store.transactionsSummary
   };
 }
 
