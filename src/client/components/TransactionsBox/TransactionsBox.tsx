@@ -1,7 +1,9 @@
+import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IStore } from '../../store/IStore';
+
 import { ITransactionsSummary } from '../../../shared/ITransactionsSummary';
+import { IStore } from '../../store/IStore';
 import { BaseBox } from '../BaseBox/BaseBox';
 
 const css = require('./TransactionsBox.css');
@@ -22,7 +24,7 @@ class TransactionsBoxImpl extends React.Component<IProps> {
   public render() {
     return (
       <BaseBox title='Transactions'>
-        <div>{this.props.transactionsSummary.count}</div>
+        <Typography variant='headline' gutterBottom>{this.props.transactionsSummary.count}</Typography>
       </BaseBox>
     );
   }

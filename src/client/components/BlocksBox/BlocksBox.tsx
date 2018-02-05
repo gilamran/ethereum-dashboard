@@ -1,8 +1,10 @@
+import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { connect } from 'react-redux';
+
 import { IStore } from '../../store/IStore';
-import { IBlocksSummary } from './../../../shared/IBlocksSummary';
 import { BaseBox } from '../BaseBox/BaseBox';
+import { IBlocksSummary } from './../../../shared/IBlocksSummary';
 
 const css = require('./BlocksBox.css');
 
@@ -14,7 +16,7 @@ class BlocksBoxImpl extends React.Component<IProps> {
   public render() {
     return (
       <BaseBox title='Blocks'>
-        <div>{this.props.blocksSummary.count}</div>
+        <Typography variant='headline' gutterBottom>{this.props.blocksSummary.count}</Typography>
       </BaseBox>
     );
   }
