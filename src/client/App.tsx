@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
+import Reboot from 'material-ui/Reboot';
 
 import { configureStore } from './store/store';
 import { Home } from './components/Home/Home';
@@ -12,6 +13,9 @@ store.dispatch(listenToBlocksInfoAction());
 
 export const App = () => (
   <Provider store={store}>
-    <Home />
+    <div>
+      <Reboot />
+      <Home />
+    </div>
   </Provider>
 );

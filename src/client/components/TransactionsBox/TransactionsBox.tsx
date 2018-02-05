@@ -2,8 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../store/IStore';
 import { ITransactionsInfo } from '../../reducers/transactionsInfoReducer';
+import { BaseBox } from '../BaseBox/BaseBox';
 
 const css = require('./TransactionsBox.css');
+
+const styles = theme => ({
+  title: {
+    marginBottom: 16,
+    fontSize: 14,
+    color: theme.palette.text.secondary,
+  }
+});
 
 interface IProps {
   transactionsInfo: ITransactionsInfo;
@@ -12,7 +21,9 @@ interface IProps {
 class TransactionsBoxImpl extends React.Component<IProps> {
   public render() {
     return (
-      <div>Transactions Box: {this.props.transactionsInfo.count}</div>
+      <BaseBox title='Transactions'>
+        <div>{this.props.transactionsInfo.count}</div>
+      </BaseBox>
     );
   }
 }
