@@ -6,6 +6,8 @@ const connectionConfiguration = {
     ipcAddresses: []
   };
 
+export type TNetworkName = 'mainnet' | 'morden' | 'ropsten' | 'rinkeby' | 'kovan' | 'unknown';
+
 export class GethAdapter {
   private blockStream;
 
@@ -39,6 +41,23 @@ export class GethAdapter {
       rpc.eth.getBlockByNumber([idx, false], block => {
         const convertedBlock: IBlock = this.convertBlock(block);
         resolve(convertedBlock);
+      });
+    });
+  }
+
+  public getNetworkName(): Promise<TNetworkName> {
+    return new Promise((resolve, reject) => {
+      rpc.net.version([], networkNumber => {
+        let networkName: TNetworkName;
+        switch (networkNumber) {
+          case '1': networkName = 'mainnet'; break;
+          case '2': networkName = 'morden'; break;
+          case '3': networkName = 'ropsten'; break;
+          case '4': networkName = 'rinkeby'; break;
+          case '42': networkName = 'kovan'; break;
+          default: networkName = 'unknown';
+        }
+        resolve(networkName);
       });
     });
   }

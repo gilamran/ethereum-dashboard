@@ -3,8 +3,7 @@ import { IBlock } from './IBlock';
 import { loadJsonFile, saveJsonFile } from '../utils/file-utils';
 
 export class NetworkState {
-  private readonly NETWORK_NAME = 'rinkeby';
-  private readonly STATE_FILENAME = this.NETWORK_NAME + '.json';
+  private stateFileName;
 
   private numberOfTransactions: number;
   private numberOfUnkles: number;
@@ -16,6 +15,8 @@ export class NetworkState {
   }
 
   public async init() {
+    const networkName = await this.gethAdapter.getNetworkName();
+    this.stateFileName = networkName + '.json';
     await this.loadState();
     this.toBlockIdx = 0;
     this.processBlocksUpTo(this.gethAdapter.getBlockNumber());
@@ -47,15 +48,18 @@ export class NetworkState {
     this.numberOfTransactions += block.transactions.length;
     this.numberOfUnkles += block.uncles.length;
     console.log(`Block #${block.number} => Tx: ${block.transactions.length} [${this.numberOfTransactions}], Unkles ${block.uncles.length} [${this.numberOfUnkles}]`);
+    if (this.numberOfUnkles > 0) {
+      console.log(this.numberOfUnkles);
+    }
   }
 
   private async saveState(): Promise<void> {
     const data = this.serialize();
-    await saveJsonFile(this.STATE_FILENAME, data);
+    await saveJsonFile(this.stateFileName, data);
   }
 
   private async loadState(): Promise<void> {
-    const data = await loadJsonFile(this.STATE_FILENAME);
+    const data = await loadJsonFile(this.stateFileName);
     this.deserialize(data || {});
   }
 
