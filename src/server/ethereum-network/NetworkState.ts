@@ -44,7 +44,6 @@ export class NetworkState extends EventEmitter {
       await this.processBlock(this.topBlockNumber);
       this.topBlockNumber++;
     }
-    this.topBlockNumber = this.toBlockIdx;
     await this.saveState();
     this.isProcessing = false;
     this.emit('state-changed');
@@ -67,7 +66,7 @@ export class NetworkState extends EventEmitter {
   }
 
   private blockToBlockSummary(block: IBlock, prevBlockSummary: IBlockSummary): IBlockSummary {
-    const confirmationTime: number = prevBlockSummary ? prevBlockSummary.timestamp - block.timestamp : 0;
+    const confirmationTime: number = prevBlockSummary ? block.timestamp - prevBlockSummary.timestamp : 0;
     return {
       confirmationTime,
       timestamp: block.timestamp,

@@ -21,6 +21,9 @@ export function blocksSummary(state: IBlocksSummary = initialState, action) {
     case blocksSummaryActionsNames.SET_BLOCKS_COUNT:
       return { ...state, count: action.count };
 
+    case blocksSummaryActionsNames.SET_LATEST_BLOCKS:
+      return { ...state, latestBlocksSummary: action.latestBlocksSummary };
+
     default:
       return state;
   }

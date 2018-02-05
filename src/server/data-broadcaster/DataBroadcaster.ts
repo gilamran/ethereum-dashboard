@@ -21,7 +21,7 @@ export class DataBroadcaster {
   }
 
   private broadcastTransactionsSummary(transactionsSummary: ITransactionsSummary) {
-    this.ws.emit('transactions-summary', transactionsSummary);
+  this.ws.emit('transactions-summary', transactionsSummary);
   }
 
   private broadcastBlocksSummary(blocksSummary: IBlocksSummary) {
