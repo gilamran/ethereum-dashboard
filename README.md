@@ -23,7 +23,7 @@ React with redux, with web-sockets for the real-time data.
  * Build using `npm run build`
  * Start `geth`, make that json-rpc is active at `http://localhost:8545` (Default).
  * Start the server using `npm start`
- * Navigate to [http://localhost:8080](http://localhost:8080)
+ * Navigate to [http://localhost:3000](http://localhost:3000)
  
  ## Important notes
   * Make sure your `geth` is fully synced with the network.
