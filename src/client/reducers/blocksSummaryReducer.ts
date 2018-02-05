@@ -2,8 +2,8 @@ import { blocksSummaryActionsNames } from './../actions/blocksSummaryActions';
 import { IBlocksSummary } from './../../shared/IBlocksSummary';
 
 const initialState: IBlocksSummary = {
-  count: 0,
-  numberOfUnkles: 0,
+  count: 1719318,
+  numberOfUnkles: 1234,
   latestBlocksSummary: [
     { confirmationTime: 15, timestamp: 0, gasUsed: 100, hash: '0x7862145', number: 171009 },
     { confirmationTime: 11, timestamp: 0, gasUsed: 200, hash: '0x7862145', number: 171008 },

@@ -17,7 +17,7 @@ class BlocksUnclesBoxImpl extends React.Component<IProps> {
     return (
       <BaseBox title='Total blocks'>
         <Typography variant='headline' gutterBottom>
-          {this.props.blocksSummary.count + this.props.blocksSummary.numberOfUnkles}
+          {(this.props.blocksSummary.count + this.props.blocksSummary.numberOfUnkles).toLocaleString('En-US')}
         </Typography>
       </BaseBox>
     );

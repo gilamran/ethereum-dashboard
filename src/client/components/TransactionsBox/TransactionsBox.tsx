@@ -24,7 +24,7 @@ class TransactionsBoxImpl extends React.Component<IProps> {
   public render() {
     return (
       <BaseBox title='Total Transactions'>
-        <Typography variant='headline' gutterBottom>{this.props.transactionsSummary.count}</Typography>
+        <Typography variant='headline' gutterBottom>{this.props.transactionsSummary.count.toLocaleString('En-US')}</Typography>
       </BaseBox>
     );
   }

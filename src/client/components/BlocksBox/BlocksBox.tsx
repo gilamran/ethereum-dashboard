@@ -17,7 +17,7 @@ class BlocksBoxImpl extends React.Component<IProps> {
     return (
       <BaseBox title='Last Block Number'>
         <Typography variant='headline' gutterBottom>
-          {this.props.blocksSummary.count}
+          {this.props.blocksSummary.count.toLocaleString('En-US')}
         </Typography>
       </BaseBox>
     );

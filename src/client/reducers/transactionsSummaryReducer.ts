@@ -2,7 +2,7 @@ import { transactionsSummaryActionsNames } from '../actions/transactionsSummaryA
 import { ITransactionsSummary } from '../../shared/ITransactionsSummary';
 
 const initialState: ITransactionsSummary = {
-  count: 0
+  count: 3157614
 };
 
 export function transactionsSummary(state: ITransactionsSummary = initialState, action) {
