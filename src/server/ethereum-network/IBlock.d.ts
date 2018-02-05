@@ -1,4 +1,5 @@
 export interface IBlock {
+  timestamp: number;
   difficulty: number;
   gasLimit: number;
   gasUsed: number;

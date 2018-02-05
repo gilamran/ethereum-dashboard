@@ -64,6 +64,7 @@ export class GethAdapter {
 
   private convertBlock(block): IBlock {
     return {
+      timestamp: parseInt(block.timestamp, 16),
       difficulty: parseInt(block.difficulty, 16),
       gasLimit: parseInt(block.gasLimit, 16),
       gasUsed: parseInt(block.gasUsed, 16),

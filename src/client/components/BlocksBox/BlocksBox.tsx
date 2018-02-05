@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../store/IStore';
-import { IBlocksInfo } from '../../reducers/blocksInfoReducer';
+import { IBlocksInfo } from './../../../shared/IBlocksInfo';
 import { BaseBox } from '../BaseBox/BaseBox';
 
 const css = require('./BlocksBox.css');

@@ -1,5 +1,5 @@
 import { ITransactionsInfo } from './../reducers/transactionsInfoReducer';
-import { IBlocksInfo } from './../reducers/blocksInfoReducer';
+import { IBlocksInfo } from './../../shared/IBlocksInfo';
 
 export interface IStore {
   transactionsInfo: ITransactionsInfo;

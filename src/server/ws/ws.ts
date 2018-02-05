@@ -1,5 +1,5 @@
-import { ITransactionsInfoDTO } from './../../shared/ITransactionsInfoDTO';
-import { IBlocksInfoDTO } from './../../shared/IBlocksInfoDTO';
+import { ITransactionsInfo } from '../../shared/ITransactionsInfo';
+import { IBlocksInfo } from '../../shared/IBlocksInfo';
 import * as socketIO from 'socket.io';
 import { Server } from 'http';
 

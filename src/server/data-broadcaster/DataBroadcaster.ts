@@ -1,7 +1,7 @@
 import { NetworkState } from '../ethereum-network/NetworkState';
 import { WS } from '../ws/ws';
-import { ITransactionsInfoDTO } from '../../shared/ITransactionsInfoDTO';
-import { IBlocksInfoDTO } from '../../shared/IBlocksInfoDTO';
+import { ITransactionsInfo } from '../../shared/ITransactionsInfo';
+import { IBlocksInfo } from '../../shared/IBlocksInfo';
 
 export class DataBroadcaster {
   constructor(private networkState: NetworkState, private ws: WS) {
@@ -19,7 +19,7 @@ export class DataBroadcaster {
     });
   }
 
-  private broadcastTransactionsInfo(transactionsInfoDTO: ITransactionsInfoDTO) {
+  private broadcastTransactionsInfo(transactionsInfoDTO: ITransactionsInfo) {
     this.ws.emit('transactions-info', transactionsInfoDTO);
   }
 
