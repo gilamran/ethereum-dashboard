@@ -1,4 +1,5 @@
 # Ethereum Dashboard
+![alt text](https://raw.githubusercontent.com/gilamran/ethereum-dashboard/master/assets/images/demo.jpg)
 
 ## What is this?
 A simple dashboard to view (real-time) metics about the ethereum network.
@@ -20,6 +21,17 @@ React with redux, with web-sockets for the real-time data.
 ## How to run
  * Install packages using `npm install`
  * Build using `npm run build`
- * Start `geth`, make that it's synced and json-rpc is active at `http://localhost:8545` (Default).
+ * Start `geth`, make that json-rpc is active at `http://localhost:8545` (Default).
  * Start the server using `npm start`
- * Navigate to [http://localhost:8080](http://localhost:8080)
+ * Navigate to [http://localhost:3000](http://localhost:3000)
+ 
+ ## Important notes
+  * Make sure your `geth` is fully synced with the network.
+  * In order to calculate all the transactions, I am querying the entire blockchain. At first, thing might take some time.
+  * A json file is saved locally with the latest data, to prevent re-querying the blockchain.
+ 
+ ## To do
+ - [ ] The client opens with some dummy data, it should load the initial state from the server.
+ - [ ] Graph of the gas prices required to get into blocks
+ - [ ] Visualize real time ERC20 token transfers
+  
