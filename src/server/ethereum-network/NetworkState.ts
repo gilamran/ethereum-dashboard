@@ -12,8 +12,7 @@ export class NetworkState extends EventEmitter {
   public latestBlocksSummary: IBlockSummary[];
 
   private stateFileName;
-  private toBlockIdx: number;
-  private isProcessing: boolean = false;
+  private processingNewState: boolean = false;
 
   constructor(private gethAdapter: GethAdapter) {
     super();
@@ -22,31 +21,41 @@ export class NetworkState extends EventEmitter {
   public async init() {
     const networkName = await this.gethAdapter.getNetworkName();
     this.stateFileName = networkName + '.json';
+    await this.bootstrap();
+  }
+
+  private async bootstrap() {
     await this.loadState();
-    this.toBlockIdx = 0;
-    this.processBlocksUpTo(this.gethAdapter.getBlockNumber());
+    await this.processNewState();
     this.listenToNewBlocks();
   }
 
   private listenToNewBlocks() {
     this.gethAdapter.subscribeToOnBlockAdded(block => {
-      this.processBlocksUpTo(block.number);
+      this.processNewState();
     });
   }
 
-  private async processBlocksUpTo(targetBlockNumber: number) {
-    this.toBlockIdx = Math.max(this.toBlockIdx, targetBlockNumber);
-    if (this.isProcessing) {
+  private async processNewState() {
+    if (this.processingNewState) {
       return;
     }
-    this.isProcessing = true;
-    while (this.topBlockNumber <= this.toBlockIdx) {
-      await this.processBlock(this.topBlockNumber);
-      this.topBlockNumber++;
-    }
+    this.processingNewState = true;
+    await this.processNewBlocks();
     await this.saveState();
-    this.isProcessing = false;
     this.emit('state-changed');
+    this.processingNewState = false;
+  }
+
+  private async processNewBlocks() {
+    const targetBlockNumber = this.gethAdapter.getBlockNumber();
+    if (this.topBlockNumber <= targetBlockNumber) {
+      while (this.topBlockNumber <= targetBlockNumber) {
+        await this.processBlock(this.topBlockNumber);
+        this.topBlockNumber++;
+      }
+      await this.processNewBlocks();
+    }
   }
 
   private async processBlock(blockNumber: number) {

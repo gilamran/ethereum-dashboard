@@ -19,7 +19,7 @@ async function main() {
 
   // network state
   const networkState = new NetworkState(gethAdapter);
-  await networkState.init();
+  networkState.init();
 
   // data broadcaster
   const dataBroadcaster = new DataBroadcaster(networkState, ws);
