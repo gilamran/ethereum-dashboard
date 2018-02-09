@@ -8,6 +8,7 @@ if (typeof web3 !== 'undefined') {
 }
 
 import { EOSToken } from './EOSToken';
+import { TronToken } from './TronToken';
 import { Token } from './Token';
 import { EventEmitter } from 'events';
 
@@ -25,7 +26,8 @@ class TokensManager extends EventEmitter {
 
   private initTokens() {
     this.tokens = [
-      new EOSToken(web3)
+      new EOSToken(web3),
+      new TronToken(web3)
     ];
   }
 

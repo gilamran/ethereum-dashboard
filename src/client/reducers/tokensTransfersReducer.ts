@@ -12,7 +12,6 @@ export interface ITokenTransfer {
 export interface ITokensTransfers {
   transfers: ITokenTransfer[];
 }
-const MAX_TOKEN_TRANSFER_HISTORY = 5;
 
 const initialState: ITokensTransfers = {
   transfers: [
@@ -28,9 +27,6 @@ export function tokensTransfers(state: ITokensTransfers = initialState, action) 
   switch (action.type) {
     case tokensTransfersActionsNames.REGISTER_TOKEN_TRANSFER:
       const transfers = [...state.transfers, action.data];
-      while (transfers.length > MAX_TOKEN_TRANSFER_HISTORY) {
-        transfers.shift();
-      }
       return { ...state, transfers };
 
     default:

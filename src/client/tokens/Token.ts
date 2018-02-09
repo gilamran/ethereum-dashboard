@@ -21,7 +21,11 @@ export abstract class Token extends EventEmitter {
     this.listenToTransferEvents();
   }
 
-  protected abstract valueToAmount(value): string;
+  protected abstract ProcessTransfer(transferObj: any): { from: string, to: string, amount: string };
+
+  protected getNextId(): number {
+    return Token.transferIdx++;
+  }
 
   private listenToTransferEvents() {
     this.transferEvent = this.contract.Transfer();
@@ -34,10 +38,8 @@ export abstract class Token extends EventEmitter {
   }
 
   private onTransfer(transferObj) {
-    Token.transferIdx++;
-    const { from, to, value } = transferObj.args;
-    const amount = this.valueToAmount(value);
-    const data: ITokenTransfer = {name: this.name, from, to, amount, id: Token.transferIdx };
+    const fromToAmount = this.ProcessTransfer(transferObj);
+    const data: ITokenTransfer = { name: this.name, id: this.getNextId(), ...fromToAmount };
     this.emit('transfer', data);
   }
 
