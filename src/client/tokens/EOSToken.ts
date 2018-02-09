@@ -3,6 +3,7 @@ import { ITokenTransfer } from '../reducers/tokensTransfersReducer';
 
 export class EOSToken extends Token {
   protected readonly name;
+  protected readonly tokenDecimals = 18;
   protected readonly abi;
   protected readonly address;
 
@@ -16,11 +17,6 @@ export class EOSToken extends Token {
 
   protected ProcessTransfer(transferObj: any): { from: string, to: string, amount: string } {
     const { from, to, value } = transferObj.args;
-    const amount = this.valueToAmount(value);
-    return { from, to, amount };
-  }
-
-  protected valueToAmount(value): string {
-    return value.s;
+    return { from, to, amount: this.amountToStr(value) };
   }
 }
