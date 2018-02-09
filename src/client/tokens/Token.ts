@@ -1,7 +1,10 @@
 import { EventEmitter } from 'events';
 import Web3 from 'web3';
+import { ITokenTransfer } from '../reducers/tokensTransfersReducer';
 
 export abstract class Token extends EventEmitter {
+  private static transferIdx: number = 100;
+
   protected readonly name: string;
   protected readonly abi: any[];
   protected readonly address: string;
@@ -31,9 +34,10 @@ export abstract class Token extends EventEmitter {
   }
 
   private onTransfer(transferObj) {
+    Token.transferIdx++;
     const { from, to, value } = transferObj.args;
     const amount = this.valueToAmount(value);
-    const data = {name: this.name, from, to, amount };
+    const data: ITokenTransfer = {name: this.name, from, to, amount, id: Token.transferIdx };
     this.emit('transfer', data);
   }
 

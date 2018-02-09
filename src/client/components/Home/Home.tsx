@@ -8,6 +8,7 @@ import { BlocksBox } from '../BlocksBox/BlocksBox';
 import { BlocksUnclesBox } from '../BlocksUnclesBox/BlocksUnclesBox';
 import { ConfirmationTimesBox } from '../ConfirmationTimesBox/ConfirmationTimesBox';
 import { TransactionsBox } from '../TransactionsBox/TransactionsBox';
+import { EOSBox } from '../EOSBox/EOSBox';
 
 const css = require('./Home.css');
 
@@ -50,6 +51,9 @@ function HomeImpl(props) {
         </Grid>
         <Grid item xs={12}>
           <ConfirmationTimesBox />
+        </Grid>
+        <Grid item xs={12}>
+          <EOSBox />
         </Grid>
       </Grid>
     </div>
