@@ -13,6 +13,7 @@ interface IProps {
   EOSTransfers: ITokenTransfer[];
   TronTransfers: ITokenTransfer[];
   VeChainTransfers: ITokenTransfer[];
+  OmiseGOTransfers: ITokenTransfer[];
 }
 
 function TokensTransfersImpl(props: IProps) {
@@ -27,6 +28,9 @@ function TokensTransfersImpl(props: IProps) {
       <Grid item xs={12}>
         <BaseTokenTransferBox name='VeChain' transfers={props.VeChainTransfers} />
       </Grid>
+      <Grid item xs={12}>
+        <BaseTokenTransferBox name='OmiseGO' transfers={props.OmiseGOTransfers} />
+      </Grid>
     </Grid>
   );
 }
@@ -35,7 +39,8 @@ function mapStateToProps(store: IStore) {
   return {
     EOSTransfers: getTokenTransfers(store, 'EOS'),
     TronTransfers: getTokenTransfers(store, 'Tron'),
-    VeChainTransfers: getTokenTransfers(store, 'VeChain')
+    VeChainTransfers: getTokenTransfers(store, 'VeChain'),
+    OmiseGOTransfers: getTokenTransfers(store, 'OmiseGO')
   };
 }
 

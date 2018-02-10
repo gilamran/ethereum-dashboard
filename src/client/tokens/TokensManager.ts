@@ -10,6 +10,7 @@ if (typeof web3 !== 'undefined') {
 import { EOSToken } from './EOSToken';
 import { TronToken } from './TronToken';
 import { VeChainToken } from './VeChainToken';
+import { OmiseGOToken } from './OmiseGOToken';
 import { Token } from './Token';
 import { EventEmitter } from 'events';
 
@@ -29,7 +30,8 @@ class TokensManager extends EventEmitter {
     this.tokens = [
       new EOSToken(web3),
       new TronToken(web3),
-      new VeChainToken(web3)
+      new VeChainToken(web3),
+      new OmiseGOToken(web3),
     ];
   }
 
