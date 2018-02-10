@@ -1,10 +1,10 @@
 import { IBlock } from './IBlock';
 const rpc = require('ethrpc');
 const connectionConfiguration = {
-    httpAddresses: ['http://localhost:8545'],
-    wsAddresses: [],
-    ipcAddresses: []
-  };
+  httpAddresses: ['http://localhost:8545'],
+  wsAddresses: [],
+  ipcAddresses: []
+};
 
 export type TNetworkName = 'mainnet' | 'morden' | 'ropsten' | 'rinkeby' | 'kovan' | 'unknown';
 
@@ -13,14 +13,14 @@ export class GethAdapter {
 
   public init(): Promise<void> {
     return new Promise((resolve, reject) => {
-      rpc.connect(connectionConfiguration, err => {
-        if (err) {
-          reject('Failed to connect to Ethereum node.');
-        } else {
-          this.blockStream = rpc.getBlockStream();
-          resolve();
-        }
-      });
+        rpc.connect(connectionConfiguration, err => {
+          if (err) {
+            reject('Failed to connect to Ethereum node.');
+          } else {
+            this.blockStream = rpc.getBlockStream();
+            resolve();
+          }
+        });
     });
   }
 
@@ -34,6 +34,22 @@ export class GethAdapter {
 
   public getBlockNumber(): number {
     return parseInt(rpc.eth.blockNumber(), 16);
+  }
+
+  public getTransactionByHash(hash: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      rpc.eth.getTransactionByHash([hash], transaction => {
+        resolve(transaction);
+      });
+    });
+  }
+
+  public getTransactionByBlockNumberAndIndex(blockIdx: number, transactionIdx: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      rpc.eth.getTransactionByBlockNumberAndIndex([blockIdx, transactionIdx], transaction => {
+        resolve(transaction);
+      });
+    });
   }
 
   public getBlockAt(idx: number): Promise<IBlock> {
