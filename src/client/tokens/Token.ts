@@ -5,6 +5,7 @@ export abstract class Token extends EventEmitter {
   private static transferIdx: number = 100;
 
   protected readonly name: string;
+  protected readonly iconUrl: string;
   protected readonly tokenDecimals: number;
   protected readonly abi: any[];
   protected readonly address: string;

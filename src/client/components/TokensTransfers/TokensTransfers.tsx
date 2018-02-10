@@ -12,6 +12,7 @@ const css = require('./TokensTransfers.css');
 interface IProps {
   EOSTransfers: ITokenTransfer[];
   TronTransfers: ITokenTransfer[];
+  VeChainTransfers: ITokenTransfer[];
 }
 
 function TokensTransfersImpl(props: IProps) {
@@ -23,6 +24,9 @@ function TokensTransfersImpl(props: IProps) {
       <Grid item xs={12}>
         <BaseTokenTransferBox name='Tron' transfers={props.TronTransfers} />
       </Grid>
+      <Grid item xs={12}>
+        <BaseTokenTransferBox name='VeChain' transfers={props.VeChainTransfers} />
+      </Grid>
     </Grid>
   );
 }
@@ -31,6 +35,7 @@ function mapStateToProps(store: IStore) {
   return {
     EOSTransfers: getTokenTransfers(store, 'EOS'),
     TronTransfers: getTokenTransfers(store, 'Tron'),
+    VeChainTransfers: getTokenTransfers(store, 'VeChain')
   };
 }
 
