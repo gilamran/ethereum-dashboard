@@ -3,6 +3,7 @@ import { IBlock } from './IBlock';
 import { loadJsonFile, saveJsonFile } from '../utils/file-utils';
 import { EventEmitter } from 'events';
 import { IBlockSummary } from '../../shared/IBlocksSummary';
+import { ITransaction } from './ITransaction';
 
 const MAX_BLOCK_HISTORY = 20;
 export class NetworkState extends EventEmitter {
@@ -42,6 +43,7 @@ export class NetworkState extends EventEmitter {
     }
     this.processingNewState = true;
     await this.processNewBlocks();
+    await this.processLatestTransactions();
     await this.saveState();
     this.emit('state-changed');
     this.processingNewState = false;
@@ -51,6 +53,7 @@ export class NetworkState extends EventEmitter {
     const targetBlockNumber = this.gethAdapter.getBlockNumber();
     if (this.topBlockNumber <= targetBlockNumber) {
       while (this.topBlockNumber <= targetBlockNumber) {
+        console.log(`Processing block #${this.topBlockNumber}, ${targetBlockNumber - this.topBlockNumber + 1} to go.`);
         await this.processBlock(this.topBlockNumber);
         this.topBlockNumber++;
       }
@@ -79,10 +82,22 @@ export class NetworkState extends EventEmitter {
     return {
       confirmationTime,
       timestamp: block.timestamp,
+      totalTransactions: block.transactions.length,
       gasUsed: block.gasUsed,
       hash: block.hash,
       number: block.number
     };
+  }
+
+  private async processLatestTransactions(): Promise<void> {
+    for (const blockSummary of this.latestBlocksSummary) {
+      const blockTransactions: ITransaction[] = [];
+      for (let i = 0; i < blockSummary.totalTransactions; i++) {
+        const transaction = await this.gethAdapter.getTransactionByBlockNumberAndIndex(blockSummary.number, i);
+        blockTransactions.push(transaction);
+      }
+      blockTransactions.sort((a, b) => a.gasPrice - b.gasPrice);
+    }
   }
 
   private async saveState(): Promise<void> {
