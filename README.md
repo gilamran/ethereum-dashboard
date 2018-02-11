@@ -27,6 +27,7 @@ React with redux, with web-sockets for the real-time data.
  
  ## Important notes
   * Make sure your `geth` is fully synced with the network.
+  * Make sure that `geth` has at least one peer connected, ([Issue](https://github.com/ethereumjs/ethrpc/issues/47))
   * In order to calculate all the transactions, I am querying the entire blockchain. At first, thing might take some time.
   * A json file is saved locally with the latest data, to prevent re-querying the blockchain.
  
