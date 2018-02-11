@@ -1,4 +1,5 @@
 import { IBlock } from './IBlock';
+import { ITransaction } from './ITransaction';
 const rpc = require('ethrpc');
 const connectionConfiguration = {
   httpAddresses: ['http://localhost:8545'],
@@ -36,18 +37,20 @@ export class GethAdapter {
     return parseInt(rpc.eth.blockNumber(), 16);
   }
 
-  public getTransactionByHash(hash: string): Promise<any> {
+  public getTransactionByHash(hash: string): Promise<ITransaction> {
     return new Promise((resolve, reject) => {
       rpc.eth.getTransactionByHash([hash], transaction => {
-        resolve(transaction);
+        const convertedTransaction = this.convertTransaction(transaction);
+        resolve(convertedTransaction);
       });
     });
   }
 
-  public getTransactionByBlockNumberAndIndex(blockIdx: number, transactionIdx: number): Promise<any> {
+  public getTransactionByBlockNumberAndIndex(blockIdx: number, transactionIdx: number): Promise<ITransaction> {
     return new Promise((resolve, reject) => {
       rpc.eth.getTransactionByBlockNumberAndIndex([blockIdx, transactionIdx], transaction => {
-        resolve(transaction);
+        const convertedTransaction = this.convertTransaction(transaction);
+        resolve(convertedTransaction);
       });
     });
   }
@@ -91,6 +94,25 @@ export class GethAdapter {
       transactions: block.transactions,
       transactionsRoot: block.transactionsRoot,
       uncles: block.uncles
+    };
+  }
+
+  private convertTransaction(tx): ITransaction {
+    return {
+      blockHash: tx.blockHash,
+      blockNumber: parseInt(tx.blockNumber, 16),
+      hash: tx.hash,
+      transactionIndex: parseInt(tx.transactionIndex, 16),
+      from: tx.from,
+      to: tx.to,
+      gas: parseInt(tx.gas, 16),
+      gasPrice: parseInt(tx.gasPrice, 16),
+      input: tx.input,
+      nonce: tx.nonce,
+      r: tx.r,
+      s: tx.s,
+      v: tx.v,
+      value: tx.value
     };
   }
 }
