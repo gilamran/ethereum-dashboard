@@ -16,6 +16,7 @@ async function main() {
   // geth adapter
   const gethAdapter = new GethAdapter();
   await gethAdapter.init();
+  console.log('Connected to geth');
 
   // network state
   const networkState = new NetworkState(gethAdapter);
