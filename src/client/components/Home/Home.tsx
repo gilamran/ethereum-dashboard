@@ -7,6 +7,7 @@ import * as React from 'react';
 import { BlocksBox } from '../BlocksBox/BlocksBox';
 import { BlocksUnclesBox } from '../BlocksUnclesBox/BlocksUnclesBox';
 import { ConfirmationTimesBox } from '../ConfirmationTimesBox/ConfirmationTimesBox';
+import { EstimationBox } from '../EstimationBox/EstimationBox';
 import { TransactionsBox } from '../TransactionsBox/TransactionsBox';
 import { TokensTransfers } from '../TokensTransfers/TokensTransfers';
 
@@ -51,6 +52,9 @@ function HomeImpl(props) {
         </Grid>
         <Grid item xs={12}>
           <ConfirmationTimesBox />
+        </Grid>
+        <Grid item xs={12}>
+          <EstimationBox />
         </Grid>
         <Grid item xs={12}>
           <TokensTransfers />

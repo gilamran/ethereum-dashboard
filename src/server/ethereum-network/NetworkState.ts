@@ -83,6 +83,7 @@ export class NetworkState extends EventEmitter {
       confirmationTime,
       timestamp: block.timestamp,
       totalTransactions: block.transactions.length,
+      gasPriceToSendEther: 0,
       gasUsed: block.gasUsed,
       hash: block.hash,
       number: block.number
@@ -96,8 +97,21 @@ export class NetworkState extends EventEmitter {
         const transaction = await this.gethAdapter.getTransactionByBlockNumberAndIndex(blockSummary.number, i);
         blockTransactions.push(transaction);
       }
-      blockTransactions.sort((a, b) => a.gasPrice - b.gasPrice);
+      blockSummary.gasPriceToSendEther = this.estimateGasPrice(blockTransactions, 21000);
     }
+  }
+
+  private estimateGasPrice(blockTransactions: ITransaction[], gasRequired: number): number {
+    blockTransactions.sort((a, b) => a.gasPrice - b.gasPrice);
+    let lastGapPrice = 0;
+    for (const blockTransaction of blockTransactions) {
+      lastGapPrice = blockTransaction.gasPrice / 1000000000;
+      gasRequired -= blockTransaction.gas;
+      if (gasRequired <= 0) {
+        break;
+      }
+    }
+    return lastGapPrice + 1; // add 1 to offer a better price
   }
 
   private async saveState(): Promise<void> {
